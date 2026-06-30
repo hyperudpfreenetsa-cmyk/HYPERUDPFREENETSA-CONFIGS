@@ -1,0 +1,32 @@
+let configs = [
+  { id: 1, network: "Vodacom", type: "UDP", host: "102.132.45.1", sni: "www.vodacom.co.za", status: "Working", expires: "2026-04-30", creator: "HyperSA" },
+  { id: 2, network: "MTN", type: "HTTP Custom", host: "41.217.12.5", sni: "m.mtn.co.za", status: "Working", expires: "2026-04-28", creator: "Ghost" },
+  { id: 3, network: "Cell C", type: "TLS", host: "196.25.1.2", sni: "www.cellc.co.za", status: "Expired", expires: "2026-04-01", creator: "HyperSA" },
+];
+let nextId = 4;
+
+export function getAllConfigs() { return configs; }
+export function addConfig(data) {
+  const newConfig = { id: nextId++, status: "Pending", expires: "2026-05-01", creator: "User",...data };
+  configs.push(newConfig);
+  return newConfig;
+}
+export function updateStatus(id, status) {
+  configs = configs.map(c => c.id === id? {...c, status} : c);
+}
+
+export default function handler(req, res) {
+  if (req.method === 'GET') {
+    return res.status(200).json(getAllConfigs());
+  }
+  if (req.method === 'POST') {
+    const newConfig = addConfig(req.body);
+    return res.status(201).json(newConfig);
+  }
+  if (req.method === 'PATCH') {
+    const { id, status } = req.body;
+    updateStatus(id, status);
+    return res.status(200).json({ok: true});
+  }
+  res.status(405).end();
+   }
