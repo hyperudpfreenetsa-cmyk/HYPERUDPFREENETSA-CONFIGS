@@ -1,0 +1,7 @@
+:root { --bg:#0A0F1E; --card:#111829; --neon:#00F5FF; --text:#fff; }
+.light { --bg:#F5F7FF; --card:#fff; --text:#0A0F1E; }
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui}
+.glass{background:rgba(17,24,41,0.6);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1)}
+.neon{box-shadow:0 0 20px rgba(0,245,255,0.3)}
+.skeleton{animation:pulse 1.5s infinite;background:linear-gradient(90deg,#111829,#1a2333,#111829);background-size:200% 100%}
+@keyframes pulse{0%{background-position:200% 0}100%{background-position:-200% 0}}
